@@ -1,0 +1,7 @@
+<h1>Resources</h1>
+<%= link_to 'New resource', new_resource_path %>
+<ul>
+  <% @resources.each do |res| %>
+    <Li> <%= link_to res.name, res %>  <%= link_to 'Edit', edit_resource_path(res) %> <%= link_to 'delete', res, method: :delete%></Li>
+  <% end %>
+</ul>

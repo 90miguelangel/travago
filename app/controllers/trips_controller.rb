@@ -19,7 +19,6 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new  trips_param
-
     if @trip.save
       redirect_to trips_path
     else
