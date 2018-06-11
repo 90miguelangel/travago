@@ -1,0 +1,7 @@
+<h1> Trips</h1>
+<%= link_to 'New trip', new_trip_path %>
+<ul>
+  <% @trips.each do |trip| %>
+    <Li> <%= link_to trip.name, trip %>  <%= link_to 'Edit', edit_trip_path(trip) %> <%= link_to 'delete', trip, method: :delete%></Li>
+  <% end %>
+</ul>
