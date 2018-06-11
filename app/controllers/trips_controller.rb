@@ -15,7 +15,13 @@ class TripsController < ApplicationController
     @trip.resources.build
   end 
 
-  def show 
+  def show
+    @total = 0
+    @per_person = 0
+    @trip.resources.each do |resource|
+      @total = @total + resource.price
+    end 
+    @per_person = @total / @trip.travelers.count unless @trip.travelers.count == 0
   end
 
   def create

@@ -1,31 +1,87 @@
-<%= form_for trip do |f| %>
-  <% if trip.errors.any? %>
-    <ul>
-      <% trip.errors.full_messages.each do |m| %>
-      <li> <%= m %></li>
-      <% end %>
-    </ul>
+<%= form_for @trip, :html => { :class => "form-horizontal trip" } do |f| %>
+
+  <% if @trip.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @trip.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
   <% end %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br/>
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :start_date, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:start_date) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :end_date, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:end_date) %>
+  </div>
+
+  <hr/>
   <h3>Travelers</h3>
-  <%= f.collection_select :traveler_ids, Traveler.all, :id, :name, {}, {multiple: true} %>
+  <div class="form-group">
+    <%= f.label :end_date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select :traveler_ids, Traveler.all, :id, :name, {}, {:class => 'form-control', multiple: true} %>
+    </div>
+    <%=f.error_span(:end_date) %>
+  </div>
 
-  <br/>
+
+  <hr/>
   <h3>Resources</h3>
+
   <%= f.fields_for :resources do |r| %>
-    <%= r.label :resource_type_id %>
-    <%= r.collection_select :resource_type_id, ResourceType.all, :id, :name %>
-    <br/>
-    <%= r.label :name %>
-    <%= r.text_field :name %>
-    <br/>
-    <%= r.label :price %>
-    <%= r.text_field :price %>
+    <div class="form-group">
+    <%= r.label :resource_type_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= r.collection_select :resource_type_id, ResourceType.all, :id, :name, {}, {:class => 'form-control'} %>
+    </div>
+    <%=r.error_span(:resource_type_id) %>
+    </div>
+    <div class="form-group">
+      <%= r.label :name, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= r.text_field :name, :class => 'form-control' %>
+      </div>
+      <%=r.error_span(:name) %>
+    </div>
+    <div class="form-group">
+      <%= r.label :price, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= r.text_field :price, :class => 'form-control' %>
+      </div>
+      <%=r.error_span(:price) %>
+    </div>
   <% end %>
-  <br/>
-  <%= f.submit "Add", name: 'add_resource' %>
-  <%= f.submit "Send" %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'add resource', name: 'add_resource', :class => 'btn btn-primary' %>
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                trips_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
 <% end %>
