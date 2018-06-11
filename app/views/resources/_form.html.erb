@@ -8,7 +8,7 @@
   <% end %>
 
   <%= f.label :resource_type_id %>
-  <%= f.text_field :resource_type_id %>
+  <%= f.collection_select :resource_type_id, ResourceType.all, :id, :name %>
   <br/>
   <%= f.label :name %>
   <%= f.text_field :name %>

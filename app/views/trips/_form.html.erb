@@ -10,5 +10,22 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
   <br/>
-  <%= f.submit "Create" %>
+  <h3>Travelers</h3>
+  <%= f.collection_select :traveler_ids, Traveler.all, :id, :name, {}, {multiple: true} %>
+
+  <br/>
+  <h3>Resources</h3>
+  <%= f.fields_for :resources do |r| %>
+    <%= r.label :resource_type_id %>
+    <%= r.collection_select :resource_type_id, ResourceType.all, :id, :name %>
+    <br/>
+    <%= r.label :name %>
+    <%= r.text_field :name %>
+    <br/>
+    <%= r.label :price %>
+    <%= r.text_field :price %>
+  <% end %>
+  <br/>
+  <%= f.submit "Add", name: 'add_resource' %>
+  <%= f.submit "Send" %>
 <% end %>

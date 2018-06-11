@@ -1,1 +1,14 @@
 <h1> <%= @trip.name %> </h1>
+<h3>Travelers</h3>
+<ul>
+  <% @trip.travelers.each do |traveler| %>
+    <li> <%= traveler.name %> </li>
+  <% end %>
+</ul>
+<br/>
+<h3>Resources</h3>
+<ul>
+  <% @trip.resources.each do |resource| %>
+    <li> <%= resource.name %> : <%= resource.price %></li>
+  <% end %>
+</ul>

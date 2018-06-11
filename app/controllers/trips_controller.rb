@@ -12,6 +12,7 @@ class TripsController < ApplicationController
 
   def new 
     @trip = Trip.new
+    @trip.resources.build
   end 
 
   def show 
@@ -19,22 +20,35 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new  trips_param
-    if @trip.save
-      redirect_to trips_path
+
+    if params['add_resource']
+      @trip.resources.build
     else
-      render :new
+      if @trip.save
+        redirect_to trips_path
+      else
+        render :new
+      end
+      return
     end
+    render :new
   end
 
   def edit 
   end
 
   def update
-    if @trip.update trips_param
-      redirect_to trips_path
+    if params['add_resource']
+      @trip.resources.build
     else
-      render :edit
+      if @trip.update trips_param
+        redirect_to trips_path
+      else
+        render :edit
+      end
+      return
     end
+    render :new
   end
 
   def destroy
@@ -43,7 +57,7 @@ class TripsController < ApplicationController
   end
 
   def trips_param
-    params.require(:trip).permit(:name, :start_date, :end_date)
+    params.require(:trip).permit(:name, :start_date, :end_date, traveler_ids: [], resources_attributes: [:resource_type_id, :name, :price])
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_10_225528) do
+ActiveRecord::Schema.define(version: 2018_06_11_224139) do
 
   create_table "resource_types", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_06_10_225528) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "trip_id"
   end
 
   create_table "travelers", force: :cascade do |t|
@@ -31,6 +32,13 @@ ActiveRecord::Schema.define(version: 2018_06_10_225528) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "trip_id"
+  end
+
+  create_table "trip_travelers", force: :cascade do |t|
+    t.integer "trip_id"
+    t.integer "traveler_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trips", force: :cascade do |t|
