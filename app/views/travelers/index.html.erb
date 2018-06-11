@@ -1,0 +1,7 @@
+<h1>Travelers</h1>
+<%= link_to 'New Traveler', new_traveler_path %>
+<ul>
+  <% @travelers.each do |trav| %>
+    <Li> <%= link_to trav.name, trav %>  <%= link_to 'Edit', edit_traveler_path(trav) %> <%= link_to 'delete', trav, method: :delete%></Li>
+  <% end %>
+</ul>
