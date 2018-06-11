@@ -1,0 +1,7 @@
+<h1>Resource Types</h1>
+<%= link_to 'New resource type', new_resource_type_path %>
+<ul>
+  <% @resource_types.each do |res| %>
+    <Li> <%= link_to res.name, res %>  <%= link_to 'Edit', edit_resource_type_path(res) %> <%= link_to 'delete', res, method: :delete%></Li>
+  <% end %>
+</ul>
